@@ -1,8 +1,21 @@
 import styles from './app.module.css';
-import updateImg from './img/update.svg';
-import deleteImg from './img/delete.svg';
+import { ListItem } from './components/ListItem/ListItem';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+      .then((loadedData) => loadedData.json())
+      .then((loadedTasks) => {
+        setTasks(loadedTasks);
+      })
+      .finally(() => setIsLoading(false));
+  }, [])
+
   return (
     <div className={styles.app}>
       <h1 className={styles.todo__title}>Список задач</h1>
@@ -11,23 +24,11 @@ function App() {
         <div className={styles.todo__filter}></div>
       </header> */}
       <ul className={styles.todo__list}>
-        <li className={`${styles.todo__item}  ${styles.task}`}>
-          <label className={styles.task__label}>
-            <input type="checkbox" name="task_id" id="" />
-            <span>Задача</span>
-          </label>
-
-          {/* TODO вставить через спрайты  */}
-          <div className={styles.todo__btns}>
-            <button className={styles.todo__btn}>
-              <img src={updateImg} alt="" />
-            </button>
-            <button className={styles.todo__btn}>
-              <img src={deleteImg} alt="" />
-
-            </button>
-          </div>
-        </li>
+        {isLoading
+          ?
+          <div className={styles.loader}></div>
+          :
+          tasks.map((item) => <ListItem item={item} key={item.id} />)}
       </ul>
     </div>
   );
