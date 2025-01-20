@@ -47,25 +47,33 @@
 
 }
 
+.taskText input{
+font-family: 'Jost';
+border: none;
+font-size: 16px;
+width: 100%;
+outline: none;
+border-bottom: 1px solid #0b76ef;
+}
+
 /* для элемента input c type="checkbox" */
-.task__label>input {
+.task__label>input[type="checkbox"] {
     position: absolute;
     z-index: -1;
     opacity: 0;
 }
 
 /* для элемента label, связанного с .task */
-.task__label>span {
+.task__label>.taskText {
     display: inline-flex;
     align-items: center;
     user-select: none;
-    width: fit-content;
     text-wrap: normal;
     transition: all .2s linear;
 }
 
 /* создание в label псевдоэлемента before со следующими стилями */
-.task__label>span::before {
+.task__label>.taskText::before {
     content: '';
     display: inline-block;
     width: 1em;
@@ -82,39 +90,43 @@
 }
 
 /* стили при наведении курсора на checkbox */
-.task__label>input:not(:disabled):not(:checked)+span:hover::before,
-.task__label:hover>input:not(:disabled):not(:checked)+span::before {
+.task__label>input[type="checkbox"]:not(:disabled):not(:checked)+.taskText:hover::before,
+.task__label:hover>input[type="checkbox"]:not(:disabled):not(:checked)+.taskText::before {
     border-color: #b3d7ff;
 }
 
 /* стили для активного чекбокса (при нажатии на него) */
-.task>input:not(:disabled):active+span::before {
+.task>input[type="checkbox"]:not(:disabled):active+.taskText::before {
     background-color: #b3d7ff;
     border-color: #b3d7ff;
 }
 
 /* стили для чекбокса, находящегося в фокусе */
-.task__label>input:focus+span::before {
+.task__label>input[type="checkbox"]:focus+.taskText::before {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 /* стили для чекбокса, находящегося в фокусе и не находящегося в состоянии checked */
-.task__label>input:focus:not(:checked)+span::before {
+.task__label>input[type="checkbox"]:focus:not(:checked)+.taskText::before {
     border-color: #80bdff;
 }
 
 /* стили для чекбокса, находящегося в состоянии checked */
-.task__label>input:checked+span::before {
+.task__label>input[type="checkbox"]:checked+.taskText::before {
     border-color: #0b76ef;
     background-color: #0b76ef;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
 }
 
-.task__label>input:checked+span {
+.task__label>input[type="checkbox"]:checked+.taskText {
     text-decoration: line-through;
 }
 
 /* стили для чекбокса, находящегося в состоянии disabled */
-.task__label>input:disabled+span::before {
+.task__label>input[type="checkbox"]:disabled+.taskText::before {
     background-color: #e9ecef;
 }
+
+.taskText, .taskText input {
+    width: 100%;
+} 
