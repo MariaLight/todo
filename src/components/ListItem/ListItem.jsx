@@ -37,9 +37,14 @@ export const ListItem = ({ refreshTasks, ...props }) => {
                             value={updatedTitle}
                             onChange={({ target }) => { setUpdatedTitle(target.value) }}
                             onBlur={() => {
-                                setIsTitleUpdating(false);
-                                requestUpdateTask({ id: id, title: updatedTitle, completed: completed })
-                            } }
+                                changeTaskTitle()
+                            }}
+
+                            onKeyDown={(event) => {
+                                if (event.keyCode === 13) {
+                                    changeTaskTitle()
+                                }
+                            }}
                         />
                     </div>
                     :
@@ -48,20 +53,18 @@ export const ListItem = ({ refreshTasks, ...props }) => {
 
 
             </label>
-
-            {/* TODO
-            вставить через спрайты  */}
+            
             <div className={styles.todo__btns}>
                 {!isChecked
                     && (isTitleUpdating ?
-                        <button onClick={changeTaskTitle} className={styles.todo__btn}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#CDCDCD" viewBox="0 0 16 16">
+                        <button disabled={isUpdating} onClick={changeTaskTitle} className={styles.todo__btn}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#CDCDCD" viewBox="0 0 16 16">
                                 <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
                             </svg>
                         </button>
                         :
 
-                        <button onClick={() => {
+                        <button disabled={isUpdating} onClick={() => {
 
 
                             setIsTitleUpdating(true);
@@ -69,14 +72,14 @@ export const ListItem = ({ refreshTasks, ...props }) => {
                                 listItemRef.current.focus()
                             }, 0);
                         }} className={styles.todo__btn}>
-                            <img src={updateImg} alt="" />
+                        <img src={updateImg} alt="Изменить задачу" />
                         </button>)
                 }
 
 
 
-                <button onClick={() => requestDeleteTask(id)} className={styles.todo__btn}>
-                    <img src={deleteImg} alt="" />
+                <button disabled={isDeleting} onClick={() => requestDeleteTask(id)} className={styles.todo__btn}>
+                    <img src={deleteImg} alt="Удалить задачу" />
                 </button>
             </div>
         </li>

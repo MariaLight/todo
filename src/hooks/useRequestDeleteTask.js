@@ -16,10 +16,6 @@ export const useRequestDeleteTask =
                 })
                 .catch(error => console.log('error is', error))
                 .finally(() => setIsDeleting(false))
-
-
-
-
         }
 
         return {
