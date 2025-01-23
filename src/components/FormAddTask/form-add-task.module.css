@@ -1,0 +1,35 @@
+.todo__add {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 20px;
+}
+
+.todo__add input {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #0b76ef;
+    padding: 5px 20px 5px 5px;
+    max-width: 100%;
+    font-family: 'Jost';
+
+}
+
+.todo__add button {
+    background-color: #0b76ef;
+    border: 1px solid #0b76ef;
+    transition: color .2s linear, background-color .2s linear;
+    color: #fff;
+    font-weight: 600;
+    text-wrap: nowrap;
+    font-family: 'Jost';
+    padding: 10px;
+    margin-left: -10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo__add button:hover {
+    background-color: #fff;
+    color: #0b76ef;
+}

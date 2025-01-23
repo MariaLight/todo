@@ -1,0 +1,10 @@
+/* Search  */
+.todo__search {
+    width: 100%;
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    outline: none;
+    font-family: 'Jost';
+    font-size: 12px;
+}
