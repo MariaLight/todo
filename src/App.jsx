@@ -1,7 +1,7 @@
 import styles from './app.module.css';
 import { ListItem } from './components/ListItem/ListItem';
 import { useState, useEffect } from 'react';
-import { useRequestAddTask, useRequestGetTasks, useRequestUpdateTask } from './hooks/index';
+import { useRequestAddTask, useRequestGetTasks } from './hooks/index';
 
 const initialTaskState = {
   id: '',
@@ -14,11 +14,9 @@ function App() {
   const [refreshTasksFlag, setRefreshTasksFlag] = useState(false);
   const refreshTasks = () => setRefreshTasksFlag(!refreshTasksFlag);
 
-
-  const { tasks, isLoading } = useRequestGetTasks(refreshTasksFlag);
+  const [tasks, setTasks] = useState([]);
+  const { isLoading } = useRequestGetTasks(refreshTasksFlag, setTasks);
   const { isCreating, requestAddTask } = useRequestAddTask(refreshTasks, newTask);
-
-  const [tasksList, setTasksList] = useState([]);
 
   // Добавление задачи 
   const handleSubmit = (event) => {
@@ -28,6 +26,7 @@ function App() {
   }
 
   // Поиск
+  const [warningText, setWarningText] = useState('Задач пока нет');
   const [searchValue, setSearchValue] = useState('');
   useEffect(() => {
     let results = [];
@@ -36,21 +35,26 @@ function App() {
         const preparedSearhValue = searchValue.trim().toLowerCase();
         return item.title.trim().toLowerCase().includes(preparedSearhValue);
       });
+      setTasks(results);
+      setWarningText('Не найдено');
+    } else {
+      refreshTasks();
+      setWarningText('Задач пока нет');
     }
-    setTasksList(results);
   }, [searchValue]);
 
   // Сортировка
   const [isSortChecked, setIsSortChecked] = useState(false);
   useEffect(() => {
-    let results = [];
     if (isSortChecked) {
-      results = Object.values(tasks).sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+      let results = Object.values(tasks).sort((a, b) => a.title.toLowerCase().localeCompare(b.title.toLowerCase()));
+      setTasks(results);
+
     } else {
-      results = tasks;
+      refreshTasks();
     }
-    setTasksList(results);
   }, [isSortChecked]);
+
 
   return (
     <div className={styles.app}>
@@ -60,7 +64,7 @@ function App() {
           <input type="text" name="taskTitle" value={newTask.title} onChange={({ target }) => setNewTask({ ...newTask, title: target.value })} />
           <button type="submit" disabled={isCreating}>Добавить задачу</button>
         </form>
-        <div className={styles.todo__functions}>
+        <div className={styles.todo__functions} >
 
           <input type="search" name='search' value={searchValue} onChange={({ target }) => setSearchValue(target.value)}
             placeholder="Поиск по задаче..."
@@ -79,13 +83,16 @@ function App() {
           ?
           <div className={styles.loader}></div>
           :
-          (tasksList.length > 0 ?
-            tasksList.map((item) => <ListItem item={item} refreshTasks={refreshTasks} key={item.id} />)
-            :
+          (tasks.length > 0 ?
             tasks.map((item) => <ListItem item={item} refreshTasks={refreshTasks} key={item.id} />)
+            :
+            <div className={styles.emptyList}>
+              {warningText}
+            </div>
 
           )
         }
+
       </ul>
     </div>
   );

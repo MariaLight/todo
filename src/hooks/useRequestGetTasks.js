@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useRequestGetTasks = (refreshTasksFlag) => {
-    const [tasks, setTasks] = useState([]);
+export const useRequestGetTasks = (refreshTasksFlag, setTasks) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -17,6 +16,6 @@ export const useRequestGetTasks = (refreshTasksFlag) => {
 
 
     return {
-        tasks, isLoading
+        isLoading
     }
 } 
