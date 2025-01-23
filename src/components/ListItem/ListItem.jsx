@@ -9,13 +9,9 @@ export const ListItem = ({ refreshTasks, ...props }) => {
 
     const [isChecked, setIsChecked] = useState(completed);
     const { isUpdating, requestUpdateTask } = useRequestUpdateTask();
-
     const { isDeleting, requestDeleteTask } = useRequestDeleteTask(refreshTasks);
-
-
     const [isTitleUpdating, setIsTitleUpdating] = useState(false);
     const [updatedTitle, setUpdatedTitle] = useState(title);
-
     const listItemRef = useRef(null);
 
     const changeTaskTitle = () => {
