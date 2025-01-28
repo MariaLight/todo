@@ -1,30 +1,20 @@
 import { useState } from "react";
+import { ref, push } from 'firebase/database';
+import { db } from '../firebase';
 
 export const useRequestAddTask =
-    (refreshTasks) => {
+    () => {
         const [isCreating, setIsCreating] = useState(false);
 
         const requestAddTask = (newTask) => {
             setIsCreating(true);
 
-            fetch("http://localhost:3006/todos", {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
-
-                },
-                body: JSON.stringify(newTask)
-            })
-                .then((rawResponse) => rawResponse.json())
+            const tasksDbRef = ref(db, 'tasks');
+            push(tasksDbRef, newTask) //возвращает промис
                 .then((response) => {
                     console.log('Задача добавлена, ответ сервера: ', response);
-                    refreshTasks();
                 })
                 .finally(() => setIsCreating(false))
-
-
-
-
         }
 
         return {

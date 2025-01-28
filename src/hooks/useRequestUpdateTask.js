@@ -1,31 +1,26 @@
 import { useState } from "react";
+import { ref, set } from 'firebase/database';
+import { db } from '../firebase';
 
 export const useRequestUpdateTask =
     () => {
-        // (refreshTasks) => {
         const [isUpdating, setIsUpdating] = useState(false);
 
-        const requestUpdateTask = (task) => {
+        const requestUpdateTask = (taskId, task) => {
             setIsUpdating(true);
-            fetch(`http://localhost:3006/todos/${task.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
+            const tasksDbRef = ref(db, `tasks/${taskId}`);
 
-                },
-                body: JSON.stringify({
-                    "title" : task.title,
-                    "completed": task.completed
-                })
+            set(tasksDbRef, {
+                "title": task.title,
+                "completed": task.completed
             })
-                .then((rawResponse) => rawResponse.json())
                 .then((response) => {
                     console.log('Задача изменена, ответ сервера: ', response);
-                    // refreshTasks();
+
                 })
                 .catch(error => console.log('error is', error))
-                .finally(() => setIsUpdating(false))
 
+                .finally(() => setIsUpdating(false))
 
 
 

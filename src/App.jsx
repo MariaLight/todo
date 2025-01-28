@@ -14,7 +14,7 @@ function App() {
   const refreshTasks = () => setRefreshTasksFlag(!refreshTasksFlag);
 
   const [tasks, setTasks] = useState([]);
-  const { isLoading } = useRequestGetTasks(refreshTasksFlag, setTasks);
+  const { isLoading } = useRequestGetTasks(setTasks, refreshTasksFlag);
   const [warningText, setWarningText] = useState('Задач пока нет');
 
   return (
@@ -41,8 +41,8 @@ function App() {
           ?
           <div className={styles.loader}></div>
           :
-          (tasks.length > 0 ?
-            tasks.map((item) => <ListItem item={item} refreshTasks={refreshTasks} key={item.id} />)
+          (Object.entries(tasks).length > 0 ?
+            Object.entries(tasks).map(([id, item]) => <ListItem taskId={id} item={item} refreshTasks={refreshTasks} key={id} />)
             :
             <div className={styles.emptyList}>
               {warningText}

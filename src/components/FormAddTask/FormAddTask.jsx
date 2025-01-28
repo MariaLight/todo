@@ -4,16 +4,15 @@ import styles from './form-add-task.module.css';
 
 
 const initialTaskState = {
-    id: '',
     title: '',
     completed: false
 }
 export const FormAddTask = ({refreshTasks}) => {
     const [newTask, setNewTask] = useState(initialTaskState);
-    const { isCreating, requestAddTask } = useRequestAddTask(refreshTasks, newTask);
+    const { isCreating, requestAddTask } = useRequestAddTask();
     const handleSubmit = (event) => {
         event.preventDefault();
-        requestAddTask({ ...newTask, id: Date.now() });
+        requestAddTask({ ...newTask});
         setNewTask(initialTaskState);
     }
 

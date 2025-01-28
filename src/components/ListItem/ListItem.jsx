@@ -4,28 +4,29 @@ import updateImg from '../../img/update.svg';
 import deleteImg from '../../img/delete.svg';
 import { useRequestUpdateTask, useRequestDeleteTask } from "../../hooks/index";
 
-export const ListItem = ({ refreshTasks, ...props }) => {
-    const { id, title, completed } = props.item;
+export const ListItem = ({ refreshTasks, taskId, ...props }) => {
+    const { title, completed } = props.item;
 
     const [isChecked, setIsChecked] = useState(completed);
     const { isUpdating, requestUpdateTask } = useRequestUpdateTask();
-    const { isDeleting, requestDeleteTask } = useRequestDeleteTask(refreshTasks);
+    const { isDeleting, requestDeleteTask } = useRequestDeleteTask();
     const [isTitleUpdating, setIsTitleUpdating] = useState(false);
     const [updatedTitle, setUpdatedTitle] = useState(title);
     const listItemRef = useRef(null);
 
     const changeTaskTitle = () => {
         setIsTitleUpdating(false);
-        requestUpdateTask({ id: id, title: updatedTitle, completed: completed })
+        requestUpdateTask(taskId, { title: updatedTitle, completed: completed })
     }
 
     return (
         <li className={`${styles.todo__item}  ${styles.task}`}>
+
             <label className={styles.task__label}>
                 <input onChange={() => {
                     setIsChecked(!isChecked)
-                    requestUpdateTask({ id: id, title: updatedTitle, completed: !isChecked })
-                }} type="checkbox" name='task' id={id} checked={isChecked} />
+                    requestUpdateTask(taskId, { title: updatedTitle, completed: !isChecked })
+                }} type="checkbox" name='task' id={taskId} checked={isChecked} />
                 {isTitleUpdating ?
                     <div className={styles.taskText}>
                         <input ref={listItemRef}
@@ -49,7 +50,7 @@ export const ListItem = ({ refreshTasks, ...props }) => {
 
 
             </label>
-            
+
             <div className={styles.todo__btns}>
                 {!isChecked
                     && (isTitleUpdating ?
@@ -61,20 +62,18 @@ export const ListItem = ({ refreshTasks, ...props }) => {
                         :
 
                         <button disabled={isUpdating} onClick={() => {
-
-
                             setIsTitleUpdating(true);
                             setTimeout(() => {
                                 listItemRef.current.focus()
                             }, 0);
                         }} className={styles.todo__btn}>
-                        <img src={updateImg} alt="Изменить задачу" />
+                            <img src={updateImg} alt="Изменить задачу" />
                         </button>)
                 }
 
 
 
-                <button disabled={isDeleting} onClick={() => requestDeleteTask(id)} className={styles.todo__btn}>
+                <button disabled={isDeleting} onClick={() => requestDeleteTask(taskId)} className={styles.todo__btn}>
                     <img src={deleteImg} alt="Удалить задачу" />
                 </button>
             </div>
