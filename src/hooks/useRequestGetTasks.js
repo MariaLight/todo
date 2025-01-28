@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-export const useRequestGetTasks = (refreshTasksFlag, setTasks) => {
+export const useRequestGetTasks = (refreshTasksFlag, setTasks, setWarningText) => {
     const [isLoading, setIsLoading] = useState(true);
+    let flag = true;
 
     useEffect(() => {
         setIsLoading(true);
@@ -11,11 +12,15 @@ export const useRequestGetTasks = (refreshTasksFlag, setTasks) => {
                 setTasks(loadedTasks);
 
             })
+            .catch((error) => {
+                setWarningText('Не удалось подключиться к серверу')
+                setTasks([]);
+            })
             .finally(() => setIsLoading(false));
     }, [refreshTasksFlag]);
 
 
     return {
-        isLoading
+        isLoading, flag
     }
 } 
