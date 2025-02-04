@@ -7,7 +7,7 @@ export const useRequestDeleteTask =
         const requestDeleteTask = (taskId) => {
             setIsDeleting(true);
             fetch(`http://localhost:3006/todos/${taskId}`, {
-                method: 'delete'
+                method: 'DELETE'
             })
                 .then((rawResponse) => rawResponse.json())
                 .then((response) => {

@@ -1,14 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import styles from './search.module.css';
-
-function debounce(func, delay = 300) {
-    let timeoutId;
-
-    return (...args) => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => func.apply(this, args), delay);
-    };
-}
+import { debounce } from "../../utils";
 
 export const Search = ({ tasks, setTasks, refreshTasks, setWarningText }) => {
     const [searchValue, setSearchValue] = useState('');

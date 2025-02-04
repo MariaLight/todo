@@ -4,16 +4,19 @@ export const useRequestAddTask =
     (refreshTasks) => {
         const [isCreating, setIsCreating] = useState(false);
 
-        const requestAddTask = (newTask) => {
+        const requestAddTask = (newTaskTitle) => {
             setIsCreating(true);
 
             fetch("http://localhost:3006/todos", {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
 
                 },
-                body: JSON.stringify(newTask)
+                body: JSON.stringify({
+                    title: newTaskTitle,
+                    completed: false,
+                })
             })
                 .then((rawResponse) => rawResponse.json())
                 .then((response) => {
