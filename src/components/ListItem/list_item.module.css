@@ -47,13 +47,13 @@
 
 }
 
-.taskText input{
-font-family: 'Jost';
-border: none;
-font-size: 16px;
-width: 100%;
-outline: none;
-border-bottom: 1px solid #0b76ef;
+.taskText input {
+    font-family: 'Jost';
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    outline: none;
+    border-bottom: 1px solid #0b76ef;
 }
 
 /* для элемента input c type="checkbox" */
@@ -69,6 +69,10 @@ border-bottom: 1px solid #0b76ef;
     align-items: center;
     user-select: none;
     text-wrap: normal;
+    white-space: pre-line;
+    word-break: break-all;
+    hyphens: auto;
+    word-wrap: break-word;
     transition: all .2s linear;
 }
 
@@ -122,11 +126,16 @@ border-bottom: 1px solid #0b76ef;
     text-decoration: line-through;
 }
 
+.task__label>input[type="checkbox"]:checked+.taskText {
+    text-decoration: line-through;
+}
+
 /* стили для чекбокса, находящегося в состоянии disabled */
 .task__label>input[type="checkbox"]:disabled+.taskText::before {
     background-color: #e9ecef;
 }
 
-.taskText, .taskText input {
+.taskText,
+.taskText input {
     width: 100%;
-} 
+}

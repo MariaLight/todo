@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 export const useRequestGetTasks = (refreshTasksFlag, setTasks, setWarningText) => {
     const [isLoading, setIsLoading] = useState(true);
-    let flag = true;
 
     useEffect(() => {
         setIsLoading(true);
@@ -21,6 +20,6 @@ export const useRequestGetTasks = (refreshTasksFlag, setTasks, setWarningText) =
 
 
     return {
-        isLoading, flag
+        isLoading
     }
 } 

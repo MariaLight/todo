@@ -1,7 +1,7 @@
 .app {
   text-align: center;
   font-family: 'Jost';
-  padding: 0 20px;
+  padding: 50px 20px;
   max-width: 500px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -27,8 +27,6 @@
   }
 }
 
-.todo__title {}
-
 .todo__list {
   max-width: 500px;
   margin: 0 auto;
@@ -37,4 +35,56 @@
 /* Add task */
 .todo__header {
   margin-bottom: 20px;
+}
+
+.return__btn {
+  background-color: #0b76ef;
+  border: 1px solid #0b76ef;
+  display: block;
+  padding: 10px 20px;
+  border-radius: 20px;
+  width: fit-content;
+  margin: 0 auto;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color .2s linear, color .2s linear;
+}
+
+.return__btn:hover {
+  color: #0b76ef;
+  background-color: #fff;
+}
+
+.nav__list {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  text-align: left;
+}
+
+.nav__link a {
+  color: black;
+  text-decoration: none;
+  transition: color .2s linear;
+  text-align: left;
+
+}
+
+.nav__link a:hover {
+  color: #0b76ef;
+}
+
+.nav__link:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.nav__link {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.link_checked {
+  text-decoration: line-through;
 }
