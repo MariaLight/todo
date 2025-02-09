@@ -1,14 +1,16 @@
-import { useRequestAddTask } from "../../hooks/index";
-import { useState } from "react";
+import { useRequestAddTask } from "../../../../hooks/index";
+import { useContext, useState } from "react";
 import styles from './form-add-task.module.css';
+import { AppContext } from "../../../../context";
 
-export const FormAddTask = ({ refreshTasks }) => {
+export const FormAddTask = () => {
+    const { refreshTasks } = useContext(AppContext)
     const [newTaskTitle, setNewTaskTitle] = useState('');
 
     const { isCreating, requestAddTask } = useRequestAddTask(refreshTasks);
     const handleSubmit = (event) => {
         event.preventDefault();
-        requestAddTask(newTaskTitle); 
+        requestAddTask(newTaskTitle);
         setNewTaskTitle('');
     }
 

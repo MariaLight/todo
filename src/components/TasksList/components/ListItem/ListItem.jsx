@@ -1,11 +1,13 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import styles from './list_item.module.css';
-import updateImg from '../../img/update.svg';
-import deleteImg from '../../img/delete.svg';
-import { useRequestUpdateTask, useRequestDeleteTask } from "../../hooks/index";
+import updateImg from '../../../../img/update.svg';
+import deleteImg from '../../../../img/delete.svg';
+import { useRequestUpdateTask, useRequestDeleteTask } from "../../../../hooks/index";
+import { AppContext } from "../../../../context";
 
-export const ListItem = ({ refreshTasks, ...props }) => {
-    const { id, title, completed } = props.item;
+export const ListItem = ({ item }) => {
+    const { refreshTasks } = useContext(AppContext);
+    const { id, title, completed } = item;
 
     const [isChecked, setIsChecked] = useState(completed);
     const { isUpdating, requestUpdateTask } = useRequestUpdateTask();

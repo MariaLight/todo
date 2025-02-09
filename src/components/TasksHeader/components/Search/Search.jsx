@@ -1,8 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import styles from './search.module.css';
-import { debounce } from "../../utils";
+import { debounce } from "../../../../utils";
+import { AppContext } from "../../../../context";
 
-export const Search = ({ tasks, setTasks, refreshTasks, setWarningText }) => {
+export const Search = () => {
+    const { tasks, refreshTasks, setTasks, setWarningText } = useContext(AppContext);
+
     const [searchValue, setSearchValue] = useState('');
     const [debouncedSearchValue, setDebouncedSearchValue] = useState('');
 

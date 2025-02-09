@@ -1,14 +1,5 @@
 {
   "todos": [
-    {
-      "title": "Новая задача",
-      "completed": false,
-      "id": 1
-    },
-    {
-      "title": "Новая новая",
-      "completed": false,
-      "id": 2
-    }
+    
   ]
 }

@@ -29,11 +29,6 @@
 
 .todo__title {}
 
-.todo__list {
-  max-width: 500px;
-  margin: 0 auto;
-}
-
 /* Add task */
 .todo__header {
   margin-bottom: 20px;

@@ -1,7 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from './sorting.module.css';
+import { AppContext } from "../../../../context";
 
-export const Sorting = ({tasks, setTasks, refreshTasks}) => {
+export const Sorting = () => {
+    const { tasks, refreshTasks, setTasks } = useContext(AppContext);
+
     const [isSortChecked, setIsSortChecked] = useState(false);
     useEffect(() => {
         if (isSortChecked) {
