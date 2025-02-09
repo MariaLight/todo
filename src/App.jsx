@@ -13,7 +13,6 @@ function App() {
   const [refreshTasksFlag, setRefreshTasksFlag] = useState(false);
   const refreshTasks = () => setRefreshTasksFlag(!refreshTasksFlag);
   const [warningText, setWarningText] = useState('Задач пока нет');
-
   const [tasks, setTasks] = useState([]);
   const { isLoading } = useRequestGetTasks(refreshTasksFlag, setTasks, setWarningText);
 
