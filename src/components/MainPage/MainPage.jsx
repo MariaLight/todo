@@ -5,11 +5,16 @@ import { Sorting } from '../Sorting/Sorting';
 import { Search } from '../Search/Search';
 import { FormAddTask } from '../FormAddTask/FormAddTask';
 import { NavLink } from 'react-router-dom';
+import { Loader } from '../Loader/Loader'
 
 
 
-export const MainPage = ({tasks, setTasks, refreshTasks, refreshTasksFlag}) => {
-    
+export const MainPage = () => {
+
+    const [refreshTasksFlag, setRefreshTasksFlag] = useState(false);
+    const refreshTasks = () => setRefreshTasksFlag(!refreshTasksFlag);
+    const [tasks, setTasks] = useState([]);
+
     const [warningText, setWarningText] = useState('Задач пока нет');
     const { isLoading } = useRequestGetTasks(refreshTasksFlag, setTasks, setWarningText);
 
@@ -37,7 +42,8 @@ export const MainPage = ({tasks, setTasks, refreshTasks, refreshTasksFlag}) => {
                 <ul className={styles.nav__list}>
                     {isLoading
                         ?
-                        <div className={styles.loader}></div>
+                        <Loader />
+
                         :
                         (tasks.length > 0 ?
                             tasks.map((item) => <li className={`${styles.nav__link} ${item.completed ? styles.link_checked : ""}`} key={item.id}><NavLink to={`task/${item.id}`}>{item.title}</NavLink></li>)

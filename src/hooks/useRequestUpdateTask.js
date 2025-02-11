@@ -2,7 +2,6 @@ import { useState } from "react";
 
 export const useRequestUpdateTask =
     () => {
-        // (refreshTasks) => {
         const [isUpdating, setIsUpdating] = useState(false);
 
         const requestUpdateTask = (task) => {
